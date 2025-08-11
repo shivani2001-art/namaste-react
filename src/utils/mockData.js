@@ -1,33 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-
-const App = () => {
-  return (
-    <div className='app'>
-        <Heading />
-        <Restaurant />
-    </div>
-  );
-}
-
-const Heading = () => {
-  return (
-    <div className='header'>
-      <div className='logo-container'>
-        <img className='logo' src="https://www.logodesign.net/logo/smoking-burger-with-lettuce-3624ld.png?nwm=1&nws=1&industry=food&sf=&txt_keyword=All" alt="Food App" />
-      </div>
-        <div className='nav-items'>
-            <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Cart</a></li>
-            </ul>
-        </div>
-    </div>
-  );
-}
-
 const ResList = [
   {
     info: {
@@ -272,40 +242,4 @@ const ResList = [
   }
 ];
 
-const Restaurant = () => {
-    return (
-        <div className='restaurant'>
-            <div className='search'>
-                <h2>Search</h2>
-            </div>
-            <div className='restaurant-card'>
-                {ResList.map((restaurant) => (
-                    <RestaurantCard key={restaurant.info.id} restaurant={restaurant} />
-                ))}
-            </div>
-        </div>
-    );
-}
-
-const RestaurantCard = (props) => {
-    const { name, cuisines, avgRating, sla, cloudinaryImageId, costForTwo } = props.restaurant.info;
-    const imageUrl = `https://media-assets.swiggy.com/swiggy/image/upload/fl_lossy,f_auto,q_auto,w_660/${cloudinaryImageId}`;
-    return (
-        <div className='restaurant-card-body'>
-            <div className='restaurant-card'>
-                <img className='restaurant-logo' src={imageUrl} alt={name} />
-                <div className='rest-body-values'>
-                    <h3>{name}</h3>
-                    <p>Rating: {avgRating}</p>
-                    <p>Cuisine: {cuisines.join(", ")}</p>
-                    <p>Delivery Time: {sla.deliveryTime} mins</p>
-                    <p>Cost for Two: {costForTwo}</p>
-                </div>
-            </div>
-        </div>
-    );
-}
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-
-root.render(<App />);
+export default ResList;
