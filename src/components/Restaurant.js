@@ -1,9 +1,13 @@
 import RestaurantCard from "./RestaurantCard";
-import { useState, useEffect, use} from "react";
+import { useState, useEffect} from "react";
+import Shimmer from "./Shimmer";
 
 const Restaurant = () => {
 
+    const [allRestaurants, setallRestaurants] = useState([]);
     const [filteredRestaurants, setFilteredRestaurants] = useState([]);
+
+    const [searchText, setSearchText] = useState("");
 
     useEffect(() => {
         fetchData();
@@ -16,19 +20,46 @@ const Restaurant = () => {
         const json = await data.json();
         console.log(json);
         // Update state with fetched data
+        setallRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
         setFilteredRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
     };
 
-    return (
+    // conditional rendering
+    // if (allRestaurants.length === 0) {
+    //     return <Shimmer/>;
+    // }
+
+    console.log("Restaurant component loaded");
+    
+    return allRestaurants.length === 0 ? <Shimmer/> : (
         <div className='restaurant'>
             <div className='search'>
-                <button onClick={() => {
-                    let topRated = filteredRestaurants.filter(restaurant => restaurant.info.avgRating > 4);
-                    setFilteredRestaurants(topRated);
+                <input 
+                   type="text" 
+                   value={searchText} 
+                   onChange={(e) => setSearchText(e.target.value)} 
+                />
+
+                {console.log("Before filteredRestaurants", filteredRestaurants)}
+                {console.log("Before allRestaurants", allRestaurants)}
+
+                <button className="search-btn" 
+                  onClick={() => { 
+                    let search = filteredRestaurants.filter(res => res.info.name.toLowerCase().includes(searchText.toLowerCase()));
+                    setallRestaurants(search);
+                }}>Search</button>
+
+
+                <button className="top-rated-btn" 
+                  onClick={() => {
+                    let topRated = allRestaurants.filter(restaurant => restaurant.info.avgRating > 4.2);
+                    setallRestaurants(topRated);
                 }}>Top Rated Restaurants</button>
             </div>
+
+            
             <div className='restaurant-card'>
-                {filteredRestaurants.map((restaurant) => (
+                {allRestaurants.map((restaurant) => (
                     <RestaurantCard key={restaurant.info.id} restaurant={restaurant} />
                 ))}
             </div>
