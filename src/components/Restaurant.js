@@ -18,7 +18,6 @@ const Restaurant = () => {
         const data = await fetch("https://www.swiggy.com/dapi/restaurants/list/v5?lat=12.9520781&lng=80.2404265&is-seo-homepage-enabled=true&page_type=DESKTOP_WEB_LISTING");
 
         const json = await data.json();
-        console.log(json);
         // Update state with fetched data
         setallRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
         setFilteredRestaurants(json.data.cards[4].card.card.gridElements.infoWithStyle.restaurants);
@@ -39,9 +38,6 @@ const Restaurant = () => {
                    value={searchText} 
                    onChange={(e) => setSearchText(e.target.value)} 
                 />
-
-                {console.log("Before filteredRestaurants", filteredRestaurants)}
-                {console.log("Before allRestaurants", allRestaurants)}
 
                 <button className="search-btn" 
                   onClick={() => { 

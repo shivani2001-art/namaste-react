@@ -1,7 +1,16 @@
 import { LOGO_URL } from "../utils/constant";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 
 const Heading = () => {
+
+  // if no dependemcy array => useEffect will run on every render
+  // if empty dependency array => useEffect will run only once when the component mounts
+  // if dependency array has some value => useEffect will run when the value changes
+
+  useEffect(() => {
+    console.log("Heading component loaded");
+  });
 
   const [btnName, setBtnName] = useState("Login");
   return (
@@ -11,10 +20,10 @@ const Heading = () => {
       </div>
         <div className='nav-items'>
             <ul>
-            <li><a href="#">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="#">Contact</a></li>
-            <li><a href="#">Cart</a></li>
+            <li><Link to="/">Home</Link></li>
+            <li><Link to="/about">About</Link></li>
+            <li><Link to="/contact">Contact</Link></li>
+            <li><Link to="/cart">Cart</Link></li>
             <li><button className="login-btn" onClick={() => {
                 setBtnName(btnName === "Login" ? "Logout" : "Login");
             }}>
