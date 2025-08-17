@@ -1,5 +1,5 @@
 import { LOGO_URL } from "../utils/constant";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link } from "react-router-dom";
 
 const Heading = () => {
@@ -7,10 +7,6 @@ const Heading = () => {
   // if no dependemcy array => useEffect will run on every render
   // if empty dependency array => useEffect will run only once when the component mounts
   // if dependency array has some value => useEffect will run when the value changes
-
-  useEffect(() => {
-    console.log("Heading component loaded");
-  });
 
   const [btnName, setBtnName] = useState("Login");
   return (
