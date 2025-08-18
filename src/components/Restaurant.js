@@ -1,6 +1,7 @@
 import RestaurantCard from "./RestaurantCard";
 import { useState, useEffect} from "react";
 import Shimmer from "./Shimmer";
+import useOnlineStatus from "../utils/useOnlineStatus";
 
 const Restaurant = () => {
 
@@ -27,6 +28,11 @@ const Restaurant = () => {
     // if (allRestaurants.length === 0) {
     //     return <Shimmer/>;
     // }
+
+    const isOnline = useOnlineStatus();
+    if (!isOnline) {
+        return <h1>Looks like you are offline. Please check your internet connection.</h1>;
+    }
 
     console.log("Restaurant component loaded");
     
